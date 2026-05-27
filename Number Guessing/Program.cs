@@ -10,27 +10,22 @@ namespace Number_Guessing
     {
         static void Main(string[] args)
         {
-            var random = new Random();
+            Random random = new Random();
            
             string input;
             bool success;
 
             int attempts = 0;
 
-            int lastTry = 0;
-            int CurrentTry = 0;
+            int lastTry;
+            int CurrentTry;
 
-            int absLastTry = 0;
-            int absCurrentTry = 0; 
-
-
-           int number = random.Next(101);
+            int number = random.Next(101);
 
             Console.WriteLine("Try to guess a number between 0 and 100");
 
-
-            while (true) {
-
+            while (true)
+            {
                 input = Console.ReadLine();
                 success = int.TryParse(input, out int UserChoice);
                 CurrentTry = UserChoice;
@@ -41,47 +36,20 @@ namespace Number_Guessing
                     continue;
                 }
 
-                if(success)
-                { 
+                if (success)
+                {
                     attempts++;
                 }
 
-                    if(attempts > 1)
-                     {
-                    absLastTry = Math.Abs(number - lastTry);
-                    absCurrentTry = Math.Abs(number - CurrentTry);
-                    
-                    
-                    if(CurrentTry == number)
-                    {
-                        Console.WriteLine($"Win! Number of attempts: {attempts}");
-                        
-                        goto EndGame;
-                    }
 
-
-                    if (absCurrentTry < absLastTry)
-                    {
-                        Console.WriteLine("Теплее");
-                        lastTry = CurrentTry;
-                        continue;
-                    }
-                    else if (absCurrentTry > absLastTry)
-                    {
-                        Console.WriteLine("Холоднее");
-                        lastTry = CurrentTry;
-                        continue;
-                    }
-                    else if(absCurrentTry == absLastTry)
-                    {
-                        Console.WriteLine("Число не поменялось");
-                        lastTry = CurrentTry;
-                        continue;
-                    }
+                if (CurrentTry == number)
+                {
+                    Console.WriteLine($"Win! Number of attempts: {attempts}");
+                    break;
                 }
-
+                
                 switch (UserChoice)
-                { 
+                {
                     case int n when n < number:
                         Console.WriteLine("A random number that is bigger than yours.");
                         lastTry = CurrentTry;
@@ -92,7 +60,6 @@ namespace Number_Guessing
                         break;
                 }
             }
-            EndGame:
             Console.ReadKey();
         }
     }
